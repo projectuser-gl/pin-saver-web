@@ -1,22 +1,15 @@
-if (typeof File === 'undefined') {
-    global.File = class File extends Blob {
-        constructor(parts, filename, options = {}) {
-            super(parts, options);
-            this.name = filename;
-            this.lastModified = options.lastModified || Date.now();
-        }
-    };
-}
-
 const express = require('express');
 const https = require('https');
 const cors = require('cors');
-const path = require('path');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public')); // Statik dosyalar için
+
+// Ana sayfa hatası (Cannot GET /) almamak için:
+app.get('/', (req, res) => {
+    res.send('PinSave Pro API Sunucusu Çalışıyor!');
+});
 
 // Video Linki Bulucu
 app.post('/extract', (req, res) => {
@@ -25,7 +18,7 @@ app.post('/extract', (req, res) => {
 
     const options = {
         headers: {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
         }
     };
 
@@ -33,6 +26,7 @@ app.post('/extract', (req, res) => {
         let data = '';
         response.on('data', (chunk) => { data += chunk; });
         response.on('end', () => {
+            // Pinterest'in sayfa yapısına göre regex
             const mp4Match = data.match(/"(https:\/\/v1\.pinimg\.com\/videos\/mc\/hls\/.*?\.mp4)"/);
             const genericMatch = data.match(/"(https:\/\/[^"]+?\.mp4)"/);
             
@@ -43,7 +37,10 @@ app.post('/extract', (req, res) => {
             if (videoUrl) res.json({ videoUrl });
             else res.status(404).json({ error: 'Video bulunamadı.' });
         });
-    }).on("error", () => res.status(500).json({ error: 'Hata oluştu.' }));
+    }).on("error", (err) => {
+        console.error(err);
+        res.status(500).json({ error: 'Hata oluştu.' });
+    });
 });
 
 // İndirme Köprüsü
@@ -58,4 +55,6 @@ app.get('/download-file', (req, res) => {
     });
 });
 
-app.listen(3000, () => console.log(`🚀 PinSave Pro 3000 portunda yayında!`));
+// BURAYI GÜNCELLEDİM: Render için port ayarı
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`🚀 API ${PORT} portunda yayında!`));
