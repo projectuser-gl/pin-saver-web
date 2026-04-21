@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PinSave Pro - Ücretsiz Pinterest Video İndirici</title>
+    <!-- Google Font: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #E60023;
+            --dark: #111111;
+            --light: #f9f9f9;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
+
+        /* Header / Navbar */
+        header {
+            background: var(--white);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo { font-size: 24px; font-weight: 700; color: var(--primary); text-decoration: none; display: flex; align-items: center; }
+        .logo span { color: var(--dark); margin-left: 5px; }
+
+        nav a { text-decoration: none; color: var(--dark); margin-left: 20px; font-weight: 500; transition: 0.3s; }
+        nav a:hover { color: var(--primary); }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 5%;
+            text-align: center;
+            background: linear-gradient(180deg, #fff 0%, #f9f9f9 100%);
+        }
+
+        .hero h1 { font-size: 42px; font-weight: 700; margin-bottom: 10px; }
+        .hero p { color: #666; font-size: 18px; margin-bottom: 30px; }
+
+        /* Input Area */
+        .search-box {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 10px;
+            border-radius: 50px;
+            display: flex;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .search-box button {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .search-box button:hover { transform: scale(1.05); background: #ad081b; }
+
+        /* Result Area */
+        #result { margin-top: 40px; display: flex; justify-content: center; }
+        .video-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .video-card video { width: 100%; border-radius: 15px; margin-bottom: 20px; }
+
+        .btn-download {
+            display: block;
+            background: #25d366;
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .btn-download:hover { opacity: 0.9; }
+
+        /* Features Section */
+        .features { padding: 60px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .feature-item { background: var(--white); padding: 30px; border-radius: 20px; text-align: center; transition: 0.3s; }
+        .feature-item:hover { transform: translateY(-10px); }
+        .feature-item i { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
+
+        /* Footer */
+        footer { background: var(--dark); color: white; padding: 40px 5%; text-align: center; margin-top: 60px; }
+        .footer-links a { color: #ccc; text-decoration: none; margin: 0 10px; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="#" class="logo">📌 PinSave<span>Pro</span></a>
+    <nav>
+        <a href="#how-to">Nasıl İndirilir?</a>
+        <a href="#features">Özellikler</a>
+        <a href="#faq">SSS</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Pinterest Videolarını Saniyeler İçinde İndir</h1>
+    <p>Filigransız, yüksek kaliteli ve tamamen ücretsiz.</p>
+    
+    <div class="search-box">
+        <input type="text" id="pinUrl" placeholder="Pinterest linkini buraya yapıştırın...">
+        <button onclick="processVideo()">İndir</button>
+    </div>
+
+    <div id="result">
+        <!-- Buraya Video Kartı Gelecek -->
+    </div>
+</section>
+
+<section class="features" id="features">
+    <div class="feature-item">
+        <h3>Hızlı İndirme</h3>
+        <p>Saniyeler içinde video linkini analiz eder ve indirmeye hazırlar.</p>
+    </div>
+    <div class="feature-item">
+        <h3>HD Kalite</h3>
+        <p>Pinterest'in sunduğu en yüksek çözünürlükte indirme imkanı sağlar.</p>
+    </div>
+    <div class="feature-item">
+        <h3>Sınırsız</h3>
+        <p>Herhangi bir günlük sınır olmadan dilediğiniz kadar video indirin.</p>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2023 PinSave Pro - Pinterest Video Downloader</p>
+    <div class="footer-links">
+        <a href="#">Kullanım Şartları</a>
+        <a href="#">Gizlilik Politikası</a>
+        <a href="#">İletişim</a>
+    </div>
+</footer>
+
+<script>
+    async function processVideo() {
+        const url = document.getElementById('pinUrl').value;
+        const resultDiv = document.getElementById('result');
+
+        if(!url) { alert("Lütfen bir link girin!"); return; }
+
+        resultDiv.innerHTML = '<div class="video-card"><p>Analiz ediliyor...</p></div>';
+
+        try {
+            const response = await fetch('http://localhost:3000/extract', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url })
+            });
+
+            const data = await response.json();
+
+            if (data.videoUrl) {
+                const proxyUrl = `http://localhost:3000/download-file?url=${encodeURIComponent(data.videoUrl)}`;
+                
+                resultDiv.innerHTML = `
+                    <div class="video-card">
+                        <video controls>
+                            <source src="${data.videoUrl}" type="video/mp4">
+                        </video>
+                        <a href="${proxyUrl}" class="btn-download">📥 MP4 OLARAK İNDİR</a>
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = `<div class="video-card" style="color:red;">❌ Video bulunamadı!</div>`;
+            }
+        } catch (error) {
+            resultDiv.innerHTML = `<div class="video-card" style="color:red;">⚠️ Sunucu hatası!</div>`;
+        }
+    }
+</script>
+
+</body>
+</html>
